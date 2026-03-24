@@ -1,0 +1,9 @@
+configuration {
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    font: "FiraCode Nerd Font 12";
+    display-drun: " Apps";
+    display-window: " Windows";
+    drun-display-format: "{name}";
+    modi: "drun,window,run";
+}

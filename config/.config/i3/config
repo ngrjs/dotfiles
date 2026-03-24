@@ -1,0 +1,176 @@
+# i3 config — Catppuccin Mocha themed
+# https://i3wm.org/docs/userguide.html
+
+# Catppuccin Mocha palette
+set $rosewater #f5e0dc
+set $flamingo  #f2cdcd
+set $pink      #f5c2e7
+set $mauve     #cba6f7
+set $red       #f38ba8
+set $maroon    #eba0ac
+set $peach     #fab387
+set $yellow    #f9e2af
+set $green     #a6e3a1
+set $teal      #94e2d5
+set $sky       #89dceb
+set $sapphire  #74c7ec
+set $blue      #89b4fa
+set $lavender  #b4befe
+set $text      #cdd6f4
+set $subtext1  #bac2de
+set $subtext0  #a6adc8
+set $overlay2  #9399b2
+set $overlay1  #7f849c
+set $overlay0  #6c7086
+set $surface2  #585b70
+set $surface1  #45475a
+set $surface0  #313244
+set $base      #1e1e2e
+set $mantle    #181825
+set $crust     #11111b
+
+set $mod Mod4
+font pango:FiraCode Nerd Font 10
+
+# Window colors         border    background text    indicator  child_border
+client.focused          $peach    $base      $text   $peach     $peach
+client.focused_inactive $overlay0 $base      $text   $surface1  $overlay0
+client.unfocused        $overlay0 $base      $text   $surface1  $overlay0
+client.urgent           $peach    $base      $peach  $overlay0  $peach
+client.placeholder      $overlay0 $base      $text   $overlay0  $overlay0
+client.background       $base
+
+# Gaps
+gaps inner 6
+gaps outer 0
+smart_borders on
+default_border pixel 2
+
+# Window management
+bindsym $mod+Return exec wezterm
+bindsym $mod+q kill
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# Resize mode
+mode "resize" {
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+
+# Auto-assign apps to workspaces
+assign [class="firefox"] $ws5
+assign [class="Google-chrome"] $ws2
+assign [class="Slack"] $ws4
+assign [class="discord"] $ws4
+assign [class="TelegramDesktop"] $ws4
+assign [class="Spotify"] $ws5
+
+# Window rules
+for_window [class="Flameshot"] floating enable
+for_window [class="Thunar" window_role="progress"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [class="org.wezfurlong.wezterm"] border pixel 2
+
+# Launchers & tools
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/catppuccin-mocha.rasi
+bindsym $mod+Tab exec --no-startup-id rofi -show window -theme ~/.config/rofi/catppuccin-mocha.rasi
+bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -theme ~/.config/rofi/catppuccin-mocha.rasi
+bindsym $mod+slash exec --no-startup-id ~/.config/i3/scripts/cheatsheet.sh
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+bindsym Print exec --no-startup-id flameshot full -p ~/Pictures/screenshots
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/power-menu.sh
+bindsym $mod+b bar mode toggle
+bindsym $mod+n exec --no-startup-id thunar
+bindsym $mod+Escape exec --no-startup-id i3lock-color --color 1e1e2e
+bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/display-toggle.sh
+
+# Media & hardware (with dunst OSD)
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/volume.sh mute
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+# Startup
+exec --no-startup-id xss-lock -- i3lock-color --color 1e1e2e
+exec --no-startup-id picom --config ~/.config/picom/picom.conf
+exec --no-startup-id dunst
+exec --no-startup-id greenclip daemon
+exec --no-startup-id autorandr --change
+exec --no-startup-id flameshot
+exec --no-startup-id lxpolkit
+exec --no-startup-id nm-applet
+
+# Bar
+bar {
+    status_command i3status-rs ~/.config/i3status-rust/config.toml
+    position bottom
+    font pango:FiraCode Nerd Font 12
+    tray_output primary
+    colors {
+        background $base
+        statusline $text
+        separator  $overlay0
+        # class            border    background text
+        focused_workspace  $lavender $lavender  $base
+        active_workspace   $overlay0 $surface0  $text
+        inactive_workspace $base     $base      $overlay1
+        urgent_workspace   $peach    $peach     $base
+    }
+}

@@ -1,0 +1,53 @@
+[theme]
+theme = "ctp-mocha"
+
+[icons]
+icons = "material-nf"
+
+[[block]]
+block = "focused_window"
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+format = " $icon $available "
+
+[[block]]
+block = "memory"
+format = " $icon $mem_used_percents.eng(w:2) "
+
+[[block]]
+block = "cpu"
+format = " $icon $utilization "
+interval = 5
+
+[[block]]
+block = "temperature"
+format = " $icon $max "
+chip = "*-isa-*"
+interval = 10
+
+[[block]]
+block = "net"
+format = " $icon $ssid $signal_strength "
+interval = 10
+
+[[block]]
+block = "battery"
+format = " $icon $percentage $time "
+full_format = " $icon $percentage "
+missing_format = ""
+
+[[block]]
+block = "backlight"
+format = " $icon $brightness "
+
+[[block]]
+block = "sound"
+format = " $icon $volume "
+
+[[block]]
+block = "time"
+format = " $icon $timestamp.datetime(f:'%a %d %b %H:%M') "
+interval = 30
