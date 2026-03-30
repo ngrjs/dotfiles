@@ -47,7 +47,7 @@ smart_borders on
 default_border pixel 2
 
 # Window management
-bindsym $mod+Return exec wezterm
+bindsym $mod+Return exec env XCURSOR_THEME=catppuccin-mocha-dark-cursors wezterm
 bindsym $mod+q kill
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -134,7 +134,7 @@ bindsym Print exec --no-startup-id flameshot full -p ~/Pictures/screenshots
 bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/power-menu.sh
 bindsym $mod+b bar mode toggle
 bindsym $mod+n exec --no-startup-id thunar
-bindsym $mod+Escape exec --no-startup-id i3lock-color --color 1e1e2e
+bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/lock.sh
 bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/display-toggle.sh
 
 # Media & hardware (with dunst OSD)
@@ -148,11 +148,13 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Startup
-exec --no-startup-id xss-lock -- i3lock-color --color 1e1e2e
+exec --no-startup-id xsetroot -cursor_name left_ptr
+exec --no-startup-id xss-lock -- ~/.config/i3/scripts/lock.sh
 exec --no-startup-id picom --config ~/.config/picom/picom.conf
 exec --no-startup-id dunst
 exec --no-startup-id greenclip daemon
 exec --no-startup-id autorandr --change
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
 exec --no-startup-id flameshot
 exec --no-startup-id lxpolkit
 exec --no-startup-id nm-applet

@@ -1,0 +1,9 @@
+[tools]
+python = "3.12"
+node = "24"
+go = "1.21"
+rust = "1.94"
+pnpm = "10"
+uv = "latest"
+shellcheck = "latest"
+shfmt = "latest"
