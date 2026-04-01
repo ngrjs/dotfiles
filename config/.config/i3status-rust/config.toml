@@ -19,7 +19,7 @@ format = " $icon $mem_used_percents.eng(w:2) "
 
 [[block]]
 block = "cpu"
-format = " $icon $utilization "
+format = " $icon $utilization $frequency "
 interval = 5
 
 [[block]]
@@ -27,6 +27,11 @@ block = "temperature"
 format = " $icon $max "
 chip = "*-isa-*"
 interval = 10
+
+[[block]]
+block = "nvidia_gpu"
+format = " $icon $utilization $memory $temperature "
+interval = 5
 
 [[block]]
 block = "net"

@@ -1,5 +1,5 @@
-# i3 config — Catppuccin Mocha themed
-# https://i3wm.org/docs/userguide.html
+# Sway config — Catppuccin Mocha themed
+# https://swaywm.org/
 
 # Catppuccin Mocha palette
 set $rosewater #f5e0dc
@@ -46,8 +46,25 @@ gaps outer 0
 smart_borders on
 default_border pixel 2
 
+# Input
+input type:touchpad {
+    tap enabled
+    natural_scroll disabled
+    dwt enabled
+}
+
+input type:keyboard {
+    xkb_options caps:escape
+}
+
+# Output / wallpaper
+output * bg ~/Pictures/wallpaper.jpg fill
+
+# Cursor
+seat * xcursor_theme catppuccin-mocha-dark-cursors 24
+
 # Window management
-bindsym $mod+Return exec env XCURSOR_THEME=catppuccin-mocha-dark-cursors wezterm
+bindsym $mod+Return exec wezterm
 bindsym $mod+q kill
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -64,7 +81,6 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
 
 # Resize mode
 mode "resize" {
@@ -98,7 +114,6 @@ bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
-bindsym $mod+Home workspace number $ws5
 
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -111,61 +126,57 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 
 # Auto-assign apps to workspaces
-assign [class="firefox"] $ws5
+assign [app_id="firefox"] $ws5
 assign [class="Google-chrome"] $ws2
-assign [class="Slack"] $ws4
-assign [class="discord"] $ws4
-assign [class="TelegramDesktop"] $ws4
+assign [app_id="Slack"] $ws4
+assign [app_id="discord"] $ws4
+assign [app_id="telegramdesktop"] $ws4
 assign [class="Spotify"] $ws5
 
 # Window rules
-for_window [class="Flameshot"] floating enable
-for_window [class="Thunar" window_role="progress"] floating enable
+for_window [app_id="thunar" title="File Operation Progress"] floating enable
+for_window [window_type="dialog"] floating enable
 for_window [window_role="pop-up"] floating enable
-for_window [window_role="dialog"] floating enable
-for_window [class="org.wezfurlong.wezterm"] border pixel 2
 
 # Launchers & tools
-bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/catppuccin-mocha.rasi
-bindsym $mod+Tab exec --no-startup-id rofi -show window -theme ~/.config/rofi/catppuccin-mocha.rasi
-bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -theme ~/.config/rofi/catppuccin-mocha.rasi
-bindsym $mod+slash exec --no-startup-id ~/.config/i3/scripts/cheatsheet.sh
-bindsym $mod+Shift+s exec --no-startup-id flameshot gui
-bindsym Print exec --no-startup-id flameshot full -p ~/Pictures/screenshots
-bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/power-menu.sh
+bindsym $mod+d exec rofi -show drun -theme ~/.config/rofi/catppuccin-mocha.rasi
+bindsym $mod+Tab exec rofi -show window -theme ~/.config/rofi/catppuccin-mocha.rasi
+bindsym $mod+v exec cliphist list | rofi -dmenu -theme ~/.config/rofi/catppuccin-mocha.rasi | cliphist decode | wl-copy
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+bindsym Print exec grim ~/Pictures/screenshots/$(date +%Y%m%d_%H%M%S).png
+bindsym $mod+Shift+e exec ~/.config/sway/scripts/power-menu.sh
 bindsym $mod+b bar mode toggle
-bindsym $mod+n exec --no-startup-id thunar
-bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/lock.sh
-bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/display-toggle.sh
+bindsym $mod+n exec thunar
+bindsym $mod+Escape exec swaylock -f -c 1e1e2e
 
 # Media & hardware (with dunst OSD)
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh up
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh down
-bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/volume.sh mute
-bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioRaiseVolume exec ~/.config/i3/scripts/volume.sh up
+bindsym XF86AudioLowerVolume exec ~/.config/i3/scripts/volume.sh down
+bindsym XF86AudioMute exec ~/.config/i3/scripts/volume.sh mute
+bindsym XF86MonBrightnessUp exec ~/.config/i3/scripts/brightness.sh up
+bindsym XF86MonBrightnessDown exec ~/.config/i3/scripts/brightness.sh down
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Idle and lock
+exec swayidle -w \
+    timeout 300 'swaylock -f -c 1e1e2e' \
+    timeout 600 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 1e1e2e'
 
 # Startup
-exec --no-startup-id xsetroot -cursor_name left_ptr
-exec --no-startup-id xss-lock -- ~/.config/i3/scripts/lock.sh
-exec --no-startup-id picom --config ~/.config/picom/picom.conf
-exec --no-startup-id dunst
-exec --no-startup-id greenclip daemon
-exec --no-startup-id autorandr --change
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
-exec --no-startup-id flameshot
-exec --no-startup-id lxpolkit
-exec --no-startup-id nm-applet
+exec dunst
+exec wl-paste --watch cliphist store
+exec lxpolkit
+exec nm-applet --indicator
 
 # Bar
 bar {
     status_command i3status-rs ~/.config/i3status-rust/config.toml
     position bottom
     font pango:FiraCode Nerd Font 12
-    tray_output primary
     colors {
         background $base
         statusline $text

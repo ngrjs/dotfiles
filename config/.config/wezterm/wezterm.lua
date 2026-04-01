@@ -29,8 +29,8 @@ config.window_padding = {
 }
 config.scrollback_lines = 5000
 
--- Leader key: Ctrl+b (tmux-style)
-config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
+-- Leader key: Ctrl+s
+config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 1000 }
 
 local act = wezterm.action
 config.keys = {

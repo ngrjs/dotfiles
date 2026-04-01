@@ -5,15 +5,19 @@ i3wm setup with Catppuccin Mocha theming on Ubuntu 24.04.
 ## What's included
 
 - **i3wm** — tiling window manager with gaps, vim-style keybindings
-- **i3status-rust** — status bar with system vitals (CPU, memory, disk, battery, network)
-- **picom** — compositor (shadows, fading, rounded corners, transparency)
+- **i3status-rust** — status bar with system vitals (CPU, GPU, memory, disk, battery, network)
+- **picom** — compositor (shadows, blur, fading, rounded corners, transparency)
 - **rofi** — app launcher, window switcher, clipboard manager, power menu
 - **dunst** — notifications with volume/brightness OSD progress bars
-- **wezterm** — terminal emulator
+- **wezterm** — terminal emulator with tmux-style pane splits
+- **neovim** — LazyVim with Catppuccin Mocha, Rust LSP
+- **zed** — editor with Catppuccin Mocha
 - **yazi** — terminal file manager
 - **autorandr** — automatic display profile switching
-- **vim** — with catppuccin theme and vim-airline
-- **zsh** — oh-my-zsh with syntax highlighting
+- **mise** — tool version manager (python, node, go, rust, pnpm, uv, etc.)
+- **zsh** — oh-my-zsh with syntax highlighting, autosuggestions, fzf, fzf-tab
+- **zoxide** — smarter cd
+- **atuin** — shell history search
 
 ## Fresh install
 
@@ -24,18 +28,26 @@ git clone https://github.com/<your-username>/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
-### 2. Install packages
+### 2. Install system packages
 
 ```sh
 sudo apt install i3 picom rofi dunst feh flameshot autorandr brightnessctl playerctl \
   thunar xss-lock lxpolkit network-manager-gnome papirus-icon-theme pipewire wireplumber \
-  libsensors-dev libpulse-dev libssl-dev cargo stow zsh
+  neovim fzf stow zsh
 ```
 
-### 3. Install from source / GitHub releases
+### 3. Install NVIDIA driver (if applicable)
+
+```sh
+sudo apt install nvidia-driver-580-open
+sudo reboot
+```
+
+### 4. Install from source / GitHub releases
 
 ```sh
 # i3status-rust
+sudo apt install libsensors-dev libpulse-dev libssl-dev cargo
 cargo install i3status-rs
 sudo mkdir -p /usr/share/i3status-rust/{themes,icons}
 sudo cp ~/.cargo/registry/src/index.crates.io-*/i3status-rs-*/files/themes/* /usr/share/i3status-rust/themes/
@@ -61,7 +73,17 @@ sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin/
 sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin/
 ```
 
-### 4. Install fonts and themes
+### 5. Install mise and tools
+
+```sh
+curl https://mise.run | sh
+eval "$(~/.local/bin/mise activate zsh)"
+mise install
+```
+
+This installs: python, node, go, rust, pnpm, uv, shellcheck, shfmt, btop.
+
+### 6. Install fonts and themes
 
 ```sh
 # FiraCode Nerd Font
@@ -79,28 +101,25 @@ unzip /tmp/catppuccin-gtk.zip -d ~/.themes/
 mkdir -p ~/.icons
 wget -O /tmp/catppuccin-cursors.zip https://github.com/catppuccin/cursors/releases/latest/download/catppuccin-mocha-dark-cursors.zip
 unzip /tmp/catppuccin-cursors.zip -d ~/.icons/
-
-# Zsh syntax highlighting
-git clone https://github.com/catppuccin/zsh-syntax-highlighting.git \
-  ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 ```
 
-### 5. Deploy dotfiles
+### 7. Install zsh plugins
+
+```sh
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/Aloxaf/fzf-tab ~/.oh-my-zsh/custom/plugins/fzf-tab
+```
+
+### 8. Deploy dotfiles
 
 ```sh
 cd ~/dotfiles
 stow config
 stow zsh
-stow vim
 ```
 
-### 6. Install vim plugins
-
-```sh
-vim +PlugInstall +qall
-```
-
-### 7. Setup
+### 9. Setup
 
 ```sh
 # Add user to video group (for brightness control)
@@ -125,9 +144,13 @@ sudo sed -i 's/#HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' /etc/sys
 sudo systemctl restart systemd-logind
 ```
 
-### 8. Log out, select i3 from the login screen, log in.
+### 10. Log out, select i3 from the login screen, log in.
+
+First nvim launch will auto-install all plugins.
 
 ## Key bindings
+
+### i3
 
 | Key | Action |
 |-----|--------|
@@ -144,3 +167,26 @@ sudo systemctl restart systemd-logind
 | `$mod+Escape` | Lock screen |
 | `$mod+r` | Resize mode |
 | `$mod+1-9` | Switch workspace |
+| `$mod+Shift+c` | Reload config |
+| `$mod+Shift+r` | Restart i3 |
+
+### WezTerm (leader: Ctrl+b)
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+b` then `\|` | Split vertical |
+| `Ctrl+b` then `-` | Split horizontal |
+| `Ctrl+b` then `h/j/k/l` | Navigate panes |
+| `Ctrl+b` then `z` | Zoom pane |
+| `Ctrl+b` then `x` | Close pane |
+| `Ctrl+b` then `c` | New tab |
+| `Ctrl+b` then `n/p` | Next/prev tab |
+
+### Shell
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+R` | Fuzzy search history (fzf) |
+| `Ctrl+T` | Fuzzy find files |
+| `Alt+C` | Fuzzy cd into directory |
+| `Tab` | fzf-tab completion |
