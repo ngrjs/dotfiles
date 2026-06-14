@@ -39,6 +39,18 @@ format = " $icon $ssid $signal_strength "
 interval = 10
 
 [[block]]
+block = "custom"
+command = "~/.config/i3/scripts/netbird-status.sh"
+json = true
+interval = 10
+[[block.click]]
+button = "left"
+cmd = "netbird-ui -quick-actions"
+[[block.click]]
+button = "right"
+cmd = "~/.config/i3/scripts/netbird-menu.sh"
+
+[[block]]
 block = "battery"
 format = " $icon $percentage $time "
 full_format = " $icon $percentage "
@@ -56,3 +68,6 @@ format = " $icon $volume "
 block = "time"
 format = " $icon $timestamp.datetime(f:'%a %d %b %H:%M') "
 interval = 30
+[[block.click]]
+button = "left"
+cmd = "gsimplecal"

@@ -24,6 +24,7 @@ export XCURSOR_SIZE=24
 
 # mise (python, node, etc version management)
 eval "$(mise activate zsh)"
+eval "$(mise completion zsh)"
 
 # zoxide (smarter cd)
 eval "$(zoxide init zsh)"

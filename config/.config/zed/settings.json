@@ -1,5 +1,25 @@
 // Zed settings
 {
+  "ui_font_family": "Monaspace Krypton",
+  "cli_default_open_behavior": "existing_window",
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "git_panel": {
+    "tree_view": true,
+    "dock": "left"
+  },
   "icon_theme": "Catppuccin Mocha",
   "edit_predictions": {
     "provider": "zed"
@@ -10,6 +30,7 @@
     }
   },
   "terminal": {
+    "font_size": 12.0,
     "font_family": "FiraCode Nerd Font"
   },
   "minimap": {
@@ -17,8 +38,8 @@
   },
   "buffer_font_family": "Monaspace Krypton",
   "base_keymap": "VSCode",
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 14.0,
+  "buffer_font_size": 12.0,
   "theme": {
     "mode": "dark",
     "light": "Catppuccin Latte",

@@ -117,6 +117,7 @@ assign [class="Slack"] $ws4
 assign [class="discord"] $ws4
 assign [class="TelegramDesktop"] $ws4
 assign [class="Spotify"] $ws5
+assign [class="Microsoft-edge"] $ws5
 
 # Window rules
 for_window [class="Flameshot"] floating enable
@@ -124,6 +125,7 @@ for_window [class="Thunar" window_role="progress"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="dialog"] floating enable
 for_window [class="org.wezfurlong.wezterm"] border pixel 2
+for_window [class="Pavucontrol"] floating enable, resize set 600 400
 
 # Launchers & tools
 bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/catppuccin-mocha.rasi
@@ -136,7 +138,7 @@ bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/power-menu.sh
 bindsym $mod+b bar mode toggle
 bindsym $mod+n exec --no-startup-id thunar
 bindsym $mod+Escape exec --no-startup-id ~/.config/i3/scripts/lock.sh
-bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/display-toggle.sh
+bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/display-switch.sh
 
 # Media & hardware (with dunst OSD)
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh up
@@ -149,22 +151,29 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Startup
+exec --no-startup-id xinput set-prop "SYNA801A:00 06CB:CEC6 Touchpad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "SYNA801A:00 06CB:CEC6 Touchpad" "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id xss-lock -- ~/.config/i3/scripts/lock.sh
+exec_always --no-startup-id ~/.config/i3/scripts/dpms-power.sh
 exec --no-startup-id picom --config ~/.config/picom/picom.conf
 exec --no-startup-id dunst
 exec --no-startup-id greenclip daemon
 exec --no-startup-id autorandr --change
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpeg
 exec --no-startup-id flameshot
 exec --no-startup-id lxpolkit
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id pasystray
+exec --no-startup-id netbird-ui
+
 
 # Bar
 bar {
     status_command i3status-rs ~/.config/i3status-rust/config.toml
     position bottom
-    font pango:FiraCode Nerd Font 12
+    font pango:FiraCode Nerd Font 11
     tray_output primary
     colors {
         background $base

@@ -6,8 +6,8 @@ config.font = wezterm.font("FiraCode Nerd Font")
 config.font_size = 12
 
 -- Theme
-config.color_scheme = "Catppuccin Mocha"
-config.window_background_opacity = 1.0
+config.color_scheme = "Catppuccin Macchiato"
+config.window_background_opacity = 0.95
 
 -- Cursor
 config.default_cursor_style = "BlinkingBar"
@@ -28,6 +28,16 @@ config.window_padding = {
 	bottom = 16,
 }
 config.scrollback_lines = 5000
+
+-- Pane focus highlight
+config.inactive_pane_hsb = {
+	saturation = 0.8,
+	brightness = 0.7,
+}
+config.colors.split = "#f38ba8"
+config.command_palette_bg_color = "#1e1e2e"
+config.command_palette_fg_color = "#cdd6f4"
+config.pane_focus_follows_mouse = true
 
 -- Leader key: Ctrl+s
 config.leader = { key = "s", mods = "CTRL", timeout_milliseconds = 1000 }

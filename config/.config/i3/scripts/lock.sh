@@ -1,5 +1,6 @@
 #!/bin/sh
 /usr/local/bin/i3lock \
+    --nofork \
     --color=1e1e2e \
     --inside-color=31324400 \
     --ring-color=b4befe \
@@ -25,3 +26,8 @@
     --noinput-text="No Input" \
     --radius=120 \
     --ring-width=8
+
+# Re-detect displays after unlock (fixes HDMI wake issues)
+xrandr --auto
+autorandr --change
+feh --bg-fill ~/Pictures/wallpaper.jpeg 2>/dev/null

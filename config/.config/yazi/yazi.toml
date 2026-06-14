@@ -15,5 +15,5 @@ max_height = 900
 
 [opener]
 edit = [
-    { run = 'vim "$@"', block = true, for = "unix" },
+    { run = 'nvim "$@"', block = true, for = "unix" },
 ]
