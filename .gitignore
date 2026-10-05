@@ -1,0 +1,5 @@
+/.claude/
+config/.config/nvim/lazy-lock.json
+config/.config/nvim/lazyvim.json
+config/.config/niri/dms/
+config/.config/ghostty/themes/

@@ -1,0 +1,57 @@
+// Zed settings
+{
+  "markdown_preview": {
+    "code_font_family": "FiraCode Nerd Font",
+    "font_family": "Hack"
+  },
+  "agent_ui_font_size": 15.0,
+  "agent_buffer_font_size": 14.0,
+  "ui_font_weight": 400.0,
+  "buffer_font_weight": 400.0,
+  "ui_font_family": "FiraCode Nerd Font",
+  "cli_default_open_behavior": "existing_window",
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "git_panel": {
+    "tree_view": true,
+    "dock": "left"
+  },
+  "icon_theme": "Catppuccin Mocha",
+  "edit_predictions": {
+    "provider": "zed"
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "terminal": {
+    "font_weight": 200.0,
+    "font_size": 14.0,
+    "font_family": "Lilex"
+  },
+  "minimap": {
+    "show": "never"
+  },
+  "buffer_font_family": "Hack",
+  "base_keymap": "VSCode",
+  "ui_font_size": 15.0,
+  "buffer_font_size": 14.0,
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
+  }
+}

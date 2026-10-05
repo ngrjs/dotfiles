@@ -1,0 +1,4 @@
+[manager]
+prepend_keymap = [
+    { on = ["<Esc>"], run = "escape", desc = "Exit visual mode or cancel" },
+]

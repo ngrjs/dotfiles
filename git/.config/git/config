@@ -1,0 +1,8 @@
+[user]
+	name = ngrj
+
+# Emails live outside the repo, in ~/.config/git-identity/ (see README).
+[include]
+	path = ~/.config/git-identity/default
+[includeIf "gitdir:~/dotfiles/"]
+	path = ~/.config/git-identity/personal

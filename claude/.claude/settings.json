@@ -1,0 +1,50 @@
+{
+  "theme": "dark",
+  "autoCompactEnabled": false,
+  "permissions": {
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git checkout -- :*)",
+      "Bash(git branch -D:*)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(gh release:*)",
+      "Bash(gh pr merge:*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Read(**/*.kdbx)",
+      "Read(**/.env*)",
+      "Read(~/.config/gh/hosts.yml)",
+      "Read(~/.aws/**)"
+    ],
+    "ask": [
+      "Bash(git rebase:*)",
+      "Bash(git commit --amend:*)",
+      "Bash(docker:*)"
+    ],
+    "disableBypassPermissionsMode": "disable"
+  },
+  "sandbox": {
+    "enabled": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/guard-bash.py"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline-command.sh"
+  }
+}
